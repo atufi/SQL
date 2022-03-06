@@ -1,0 +1,298 @@
+<xsl:stylesheet version="1.0" xmlns:VM="http://thrita.behdasht.gov.ir/VM/" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:A="http://thrita.behdasht.gov.ir/ClinicalClass/">
+  <xsl:output method="xml" encoding="utf-8"/>
+  <xsl:template match="node()">
+    <xsl:copy>
+      <xsl:for-each select="/PatientBillMessageVO/VM:Composition/VM:BillServices/VM:ServiceDetailsVO">
+        <xsl:element name="Service_Item">
+          <xsl:element name="START_DATE_P">
+            <xsl:value-of select="VM:StartDate/VM:Year"/>
+            <xsl:text>/</xsl:text>
+            <xsl:value-of select="VM:StartDate/VM:Month"/>
+            <xsl:text>/</xsl:text>
+            <xsl:value-of select="VM:StartDate/VM:Day"/>
+            <xsl:text> </xsl:text>
+            <xsl:value-of select="VM:StartTime/VM:Hour"/>
+            <xsl:text>:</xsl:text>
+            <xsl:value-of select="VM:StartTime/VM:Minute"/>
+            <xsl:text>:</xsl:text>
+            <xsl:value-of select="VM:StartTime/VM:Second"/>
+          </xsl:element>
+          <xsl:element name="END_DATE_P">
+            <xsl:value-of select="VM:EndDate/VM:Year"/>
+            <xsl:text>/</xsl:text>
+            <xsl:value-of select="VM:EndDate/VM:Month"/>
+            <xsl:text>/</xsl:text>
+            <xsl:value-of select="VM:EndDate/VM:Day"/>
+            <xsl:text> </xsl:text>
+            <xsl:value-of select="VM:EndTime/VM:Hour"/>
+            <xsl:text>:</xsl:text>
+            <xsl:value-of select="VM:EndTime/VM:Minute"/>
+            <xsl:text>:</xsl:text>
+            <xsl:value-of select="VM:EndTime/VM:Second"/>
+          </xsl:element>
+          <xsl:element name="FULL_TIME_K">
+            <xsl:value-of select="VM:OtherCosts/VM:QuantitiesVO/VM:Name[@Coded_string=&apos;3333333&apos;]/../VM:Value/VM:Magnitude"/>
+          </xsl:element>
+          <xsl:element name="FULL_TIME_K_NEW">
+            <xsl:value-of select="sum(./VM:RelatedService/VM:ServiceDetailsVO/VM:Service[@Coded_string=&apos;90.2&apos;]/../VM:OtherCosts/VM:QuantitiesVO/VM:Name[@Coded_string=&apos;13&apos;]/../VM:Value/VM:Magnitude)"/>
+          </xsl:element>
+          <xsl:element name="SCIENTIFIC_BOARD_K">
+            <xsl:value-of select="./VM:OtherCosts/VM:QuantitiesVO/VM:Name[@Coded_string=&apos;2&apos;]/../VM:Value/VM:Magnitude"/>
+          </xsl:element>
+          <xsl:element name="SCIENTIFIC_BOARD_K_NEW">
+            <xsl:value-of select="sum(./VM:RelatedService/VM:ServiceDetailsVO/VM:Service[@Coded_string=&apos;90.1&apos;]/../VM:OtherCosts/VM:QuantitiesVO/VM:Name[@Coded_string=&apos;13&apos;]/../VM:Value/VM:Magnitude)"/>
+          </xsl:element>
+          <xsl:element name="DEPRIVED_AREAS_K">
+            <xsl:value-of select="./VM:OtherCosts/VM:QuantitiesVO/VM:Name[@Coded_string=&apos;3&apos;]/../VM:Value/VM:Magnitude"/>
+          </xsl:element>
+          <xsl:element name="DEPRIVED_AREAS_K_NEW">
+            <xsl:value-of select="sum(./VM:RelatedService/VM:ServiceDetailsVO/VM:Service[@Coded_string=&apos;95&apos;]/../VM:OtherCosts/VM:QuantitiesVO/VM:Name[@Coded_string=&apos;13&apos;]/../VM:Value/VM:Magnitude)"/>
+          </xsl:element>
+          <xsl:element name="FIRST_INSURANCE_AMOUNT">
+            <xsl:value-of select="./VM:OtherCosts/VM:QuantitiesVO/VM:Name[@Coded_string=&apos;13&apos;]/../VM:Value/VM:Magnitude"/>
+          </xsl:element>
+          <xsl:element name="GOVERNMENT_SUBSIDIES">
+            <xsl:value-of select="./VM:OtherCosts/VM:QuantitiesVO/VM:Name[@Coded_string=&apos;4&apos;]/../VM:Value/VM:Magnitude"/>
+          </xsl:element>
+          <xsl:element name="QUANTITY">
+            <xsl:value-of select="./VM:ServiceCount/VM:Magnitude"/>
+          </xsl:element>
+          <xsl:element name="SERVICE_GROUP_NAME">
+            <xsl:value-of select="./VM:ServiceType/@Value"/>
+          </xsl:element>
+          <xsl:element name="SERVICE_GROUP_EHR_CODE">
+            <xsl:value-of select="./VM:ServiceType/@Coded_string"/>
+          </xsl:element>
+          <xsl:element name="TOTAL_AMOUNT">
+            <xsl:value-of select="./VM:TotalCharge/VM:Magnitude"/>
+          </xsl:element>
+          <xsl:element name="INSURED_PAY_AMOUNT">
+            <xsl:value-of select="./VM:PatientContribution/VM:Magnitude"/>
+          </xsl:element>
+          <xsl:element name="FIRST_COVER_AMOUNT">
+            <xsl:value-of select="./VM:BasicInsuranceContribution/VM:Magnitude"/>
+          </xsl:element>
+          <xsl:element name="HIS_PKID">
+            <xsl:value-of select="./VM:PKID"/>
+          </xsl:element>
+          <xsl:element name="ROLE_CODE">
+            <xsl:value-of select="./VM:ServiceProvider/VM:Role/@Coded_string"/>
+          </xsl:element>
+          <xsl:element name="WARD_TYPE_VALUE">
+            <xsl:value-of select="./VM:WardType/@Value"/>
+          </xsl:element>
+          <xsl:element name="WARD_TYPE_CODE">
+            <xsl:value-of select="./VM:WardType/@Coded_string"/>
+          </xsl:element>
+          <xsl:element name="WARD_NAME">
+            <xsl:value-of select="./VM:WardName"/>
+          </xsl:element>
+          <xsl:element name="SDID">
+            <xsl:value-of select="./@SDID"/>
+          </xsl:element>
+          <xsl:element name="SERVICE_CODE">
+            <xsl:value-of select="./VM:Service/@Coded_string"/>
+          </xsl:element>
+          <xsl:element name="SERVICE_ITEM_NAME">
+            <xsl:value-of select="./VM:Service/@Value"/>
+          </xsl:element>
+          <xsl:element name="SERVICE_TERMINOLOGY_CODE">
+            <xsl:value-of select="./VM:Service/@Terminology_id"/>
+          </xsl:element>
+          <xsl:element name="EXTRALOCATION">
+            <xsl:value-of select="./VM:ExtraLocation/VM:Name"/>
+          </xsl:element>
+          <xsl:element name="EXTRA_LOCATION_CODE">
+            <xsl:value-of select="./VM:ExtraLocation/VM:ID/@ID"/>
+          </xsl:element>
+          <xsl:element name="HCP_PERSON_SERVICEPROVIDER_MEDICAL_NUMBER">
+            <xsl:value-of select="./VM:ServiceProvider/VM:Identifier/@ID"/>
+          </xsl:element>
+          <xsl:element name="HCP_PERSON_SERVICEPROVIDER_FULL_NAME">
+            <xsl:value-of select="concat( ./VM:ServiceProvider/@FirstName,&apos; &apos;,./VM:ServiceProvider/@LastName,&apos; &apos;)"/>
+          </xsl:element>
+          <xsl:element name="HCP_PERSON_SERVICEPROVIDER_TYPE">
+            <xsl:value-of select="./VM:ServiceProvider/VM:Identifier/@Type"/>
+          </xsl:element>
+          <xsl:element name="PROVISION_METHOD_CODE">
+            <xsl:value-of select="./VM:ProvisionMethod/@Coded_string"/>
+          </xsl:element>
+          <xsl:element name="CONFIRMATION_ID">
+            <xsl:value-of select="./VM:ConfirmationID/@ID"/>
+          </xsl:element>
+          <xsl:element name="BATCH_NUMBER">
+            <xsl:value-of select="./VM:BatchNumber"/>
+          </xsl:element>
+          <xsl:element name="OTHER_PARTICIPATIONS">
+            <xsl:for-each select="./VM:OtherParticipation/VM:HealthcareProviderVO">
+              <xsl:element name="OTHER_PARTICIPATION">
+                <xsl:element name="ROLE_NAME">
+                  <xsl:value-of select="./VM:Role/@Value"/>
+                </xsl:element>
+                <xsl:element name="ROLE_CODE">
+                  <xsl:value-of select="./VM:Role/@Coded_string"/>
+                </xsl:element>
+                <xsl:element name="HCP_PERSON_OTHER_PARTICIPATION_MEDICAL_NUMBER">
+                  <xsl:value-of select="./VM:Identifier/@ID"/>
+                </xsl:element>
+                <xsl:element name="HCP_PERSON_OTHER_PARTICIPATION_FULL_NAME">
+                  <xsl:value-of select="concat( ./@FirstName,&apos; &apos;,./@LastName,&apos; &apos;)"/>
+                </xsl:element>
+                <xsl:element name="HCP_PERSON_SERVICEPROVIDER_TYPE">
+                  <xsl:value-of select="./VM:ServiceProvider/VM:Identifier/@Type"/>
+                </xsl:element>
+              </xsl:element>
+            </xsl:for-each>
+          </xsl:element>
+          <xsl:element name="OTHERIDS">
+            <xsl:for-each select="./VM:OtherIDs/VM:DO_IDENTIFIER">
+              <xsl:element name="OTHERID">
+                <xsl:element name="ISSUER">
+                  <xsl:value-of select="./@Issuer"/>
+                </xsl:element>
+                <xsl:element name="ASSIGNER">
+                  <xsl:value-of select="./@Assigner"/>
+                </xsl:element>
+                <xsl:element name="ID">
+                  <xsl:value-of select="./@ID"/>
+                </xsl:element>
+                <xsl:element name="TYPE">
+                  <xsl:value-of select="./@Type"/>
+                </xsl:element>
+              </xsl:element>
+            </xsl:for-each>
+          </xsl:element>
+          <xsl:element name="RELATED_SERVICES">
+            <xsl:for-each select="./VM:RelatedService/VM:ServiceDetailsVO">
+              <xsl:element name="Related_Service">
+                <xsl:element name="ADJUST_NAME">
+                  <xsl:value-of select="./VM:Service/@Value"/>
+                </xsl:element>
+                <xsl:element name="ADJUST_CODE">
+                  <xsl:value-of select="./VM:Service/@Coded_string"/>
+                </xsl:element>
+                <xsl:element name="ROLE_NAME">
+                  <xsl:value-of select="./VM:ServiceProvider/VM:Role/@Value"/>
+                </xsl:element>
+                <xsl:element name="ROLE_CODE">
+                  <xsl:value-of select="./VM:ServiceProvider/VM:Role/@Coded_string"/>
+                </xsl:element>
+                <xsl:element name="START_DATE_P">
+                  <xsl:value-of select="VM:StartDate/VM:Year"/>
+                  <xsl:text>/</xsl:text>
+                  <xsl:value-of select="VM:StartDate/VM:Month"/>
+                  <xsl:text>/</xsl:text>
+                  <xsl:value-of select="VM:StartDate/VM:Day"/>
+                  <xsl:text> </xsl:text>
+                  <xsl:value-of select="VM:StartTime/VM:Hour"/>
+                  <xsl:text>:</xsl:text>
+                  <xsl:value-of select="VM:StartTime/VM:Minute"/>
+                  <xsl:text>:</xsl:text>
+                  <xsl:value-of select="VM:StartTime/VM:Second"/>
+                </xsl:element>
+                <xsl:element name="END_DATE_P">
+                  <xsl:value-of select="VM:EndDate/VM:Year"/>
+                  <xsl:text>/</xsl:text>
+                  <xsl:value-of select="VM:EndDate/VM:Month"/>
+                  <xsl:text>/</xsl:text>
+                  <xsl:value-of select="VM:EndDate/VM:Day"/>
+                  <xsl:text> </xsl:text>
+                  <xsl:value-of select="VM:EndTime/VM:Hour"/>
+                  <xsl:text>:</xsl:text>
+                  <xsl:value-of select="VM:EndTime/VM:Minute"/>
+                  <xsl:text>:</xsl:text>
+                  <xsl:value-of select="VM:EndTime/VM:Second"/>
+                </xsl:element>
+                <xsl:element name="FULL_TIME_K">
+                  <xsl:value-of select="./VM:OtherCosts/VM:QuantitiesVO/VM:Name[@Coded_string=&apos;3333333&apos;]/../VM:Value/VM:Magnitude"/>
+                </xsl:element>
+                <xsl:element name="DEPRIVED_AREAS_K">
+                  <xsl:value-of select="./VM:OtherCosts/VM:QuantitiesVO/VM:Name[@Coded_string=&apos;3&apos;]/../VM:Value/VM:Magnitude"/>
+                </xsl:element>
+                <xsl:element name="SCIENTIFIC_BOARD_K">
+                  <xsl:value-of select="./VM:OtherCosts/VM:QuantitiesVO/VM:Name[@Coded_string=&apos;2&apos;]/../VM:Value/VM:Magnitude"/>
+                </xsl:element>
+                <xsl:element name="FIRST_INSURANCE_AMOUNT">
+                  <xsl:value-of select="./VM:OtherCosts/VM:QuantitiesVO/VM:Name[@Coded_string=&apos;13&apos;]/../VM:Value/VM:Magnitude"/>
+                </xsl:element>
+                <xsl:element name="GOVERNMENT_SUBSIDIES">
+                  <xsl:value-of select="./VM:OtherCosts/VM:QuantitiesVO/VM:Name[@Coded_string=&apos;4&apos;]/../VM:Value/VM:Magnitude"/>
+                </xsl:element>
+                <xsl:element name="QUANTITY">
+                  <xsl:value-of select="./VM:ServiceCount/VM:Magnitude"/>
+                </xsl:element>
+                <xsl:element name="TOTAL_AMOUNT">
+                  <xsl:value-of select="./VM:TotalCharge/VM:Magnitude"/>
+                </xsl:element>
+                <xsl:element name="INSURED_PAY_AMOUNT">
+                  <xsl:value-of select="./VM:PatientContribution/VM:Magnitude"/>
+                </xsl:element>
+                <xsl:element name="FIRST_COVER_AMOUNT">
+                  <xsl:value-of select="./VM:BasicInsuranceContribution/VM:Magnitude"/>
+                </xsl:element>
+                <!--<xsl:element name="K_VALUE">
+                  <xsl:value-of select="sum(./VM:RelativeCost/VM:RelativeCostVO/VM:KValue[text()])"/>
+                </xsl:element> -->
+                <xsl:element name="K_VALUES">
+                  <xsl:for-each select="./VM:RelativeCost/VM:RelativeCostVO">
+                    <xsl:element name="K_VALUE">
+                      <xsl:value-of select="VM:KValue"/>
+                    </xsl:element>
+                  </xsl:for-each>
+                </xsl:element>
+                <xsl:element name="HIS_PKID">
+                  <xsl:value-of select="./VM:PKID"/>
+                </xsl:element>
+                <xsl:element name="HCP_PERSON_SERVICEPROVIDER_MEDICAL_NUMBER">
+                  <xsl:value-of select="./VM:ServiceProvider/VM:Identifier/@ID"/>
+                </xsl:element>
+                <xsl:element name="HCP_PERSON_SERVICEPROVIDER_FULL_NAME">
+                  <xsl:value-of select="concat( ./VM:ServiceProvider/@FirstName,&apos; &apos;,./VM:ServiceProvider/@LastName,&apos; &apos;)"/>
+                </xsl:element>
+                <xsl:element name="HCP_PERSON_SERVICEPROVIDER_TYPE">
+                  <xsl:value-of select="./VM:ServiceProvider/VM:Identifier/@Type"/>
+                </xsl:element>
+                <xsl:element name="SERVICE_GROUP_EHR_CODE">
+                  <xsl:value-of select="./VM:ServiceType/@Coded_string"/>
+                </xsl:element>
+                <xsl:element name="SDID">
+                  <xsl:value-of select="./@SDID"/>
+                </xsl:element>
+              </xsl:element>
+            </xsl:for-each>
+          </xsl:element>
+          <xsl:element name="RELATIVECOSTS">
+            <xsl:for-each select="./VM:RelativeCost/VM:RelativeCostVO">
+              <xsl:element name="RELATIVECOST">
+                <xsl:element name="VALUE">
+                  <xsl:value-of select="./VM:KType/@Value"/>
+                </xsl:element>
+                <xsl:element name="CODE">
+                  <xsl:value-of select="./VM:KType/@Coded_string"/>
+                </xsl:element>
+                <xsl:element name="K_VALUE">
+                  <xsl:value-of select="./VM:KValue"/>
+                </xsl:element>
+              </xsl:element>
+            </xsl:for-each>
+          </xsl:element>
+          <xsl:element name="OTHERCOSTS">
+            <xsl:for-each select="./VM:OtherCosts/VM:QuantitiesVO">
+              <xsl:element name="OTHERCOST">
+                <xsl:element name="COST_TITLE">
+                  <xsl:value-of select="./VM:Name/@Value"/>
+                </xsl:element>
+                <xsl:element name="EHR_CODE">
+                  <xsl:value-of select="./VM:Name/@Coded_string"/>
+                </xsl:element>
+                <xsl:element name="COST_AMOUNT">
+                  <xsl:value-of select="./VM:Value/VM:Magnitude"/>
+                </xsl:element>
+              </xsl:element>
+            </xsl:for-each>
+          </xsl:element>
+        </xsl:element>
+      </xsl:for-each>
+    </xsl:copy>
+  </xsl:template>
+</xsl:stylesheet>
